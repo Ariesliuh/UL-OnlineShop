@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Shopping Cart"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.CartEmpty}" rendered="#{ordersController.getShoppingCartCount() == 0}"/>
+                
+                    <h:dataTable value="#{ordersController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_picture}"/>
+                            </f:facet>
+                            <h:graphicImage url="/resources/img/default-image_450.png" width="150" height="150"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_productId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.productId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_productName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.productName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_price}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.price}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_count}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.count}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderTitle_count}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.purchaseCount}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>               
+                            <h:commandLink actionListener="#{ordersController.IncreaseCartCount}" value="#{bundle.CartItemIncrease}">
+                                 <f:attribute name="selectproductid" value="#{item}" />
+                            </h:commandLink>
+                            <br></br>
+                            <br></br>
+                            <h:commandLink actionListener="#{ordersController.DecreaseCartCount}" value="#{bundle.CartItemDecrease}">
+                                 <f:attribute name="selectproductid" value="#{item}" />
+                            </h:commandLink>
+                            <br></br>
+                            <br></br>
+                            <h:commandLink actionListener="#{ordersController.RemoveCartItem}" value="#{bundle.CartItemDelete}">
+                                 <f:attribute name="selectproductid" value="#{item}" />
+                            </h:commandLink>                          
+                        </h:column>
+                    </h:dataTable>
+               
+                <br></br>
+                <br></br>
+                <h:link outcome="/index" value="#{bundle.ListProductIndexLink}"/>
+                <br></br>
+                <br></br>
+                <h:commandButton actionListener="#{ordersController.ShoppingCartConfirm}" value="#{bundle.ShoppingCartConfirm}"></h:commandButton> &nbsp;&nbsp;
+                <h:commandButton actionListener="#{ordersController.RefreshCount}" value="#{bundle.ShoppingCartRefresh}"></h:commandButton>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

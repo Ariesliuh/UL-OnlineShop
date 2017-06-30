@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+   
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Order</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText  value="Order"  style="font-size:300%;"/>
+            <br></br>
+            <br></br>
+            <h:outputText  value="OrderID:   "/>
+            <h:outputText  value="#{ordersController.orderID}"/>
+                <h:panelGroup>
+                    <h:dataTable value="#{ordersController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_picture}"/>
+                            </f:facet>
+                            <h:graphicImage url="/resources/img/default-image_450.png" width="150" height="150"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_productId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.productId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_productName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.productName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_price}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.price}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_count}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product.count}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderTitle_count}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.purchaseCount}"/>
+                        </h:column>
+                    </h:dataTable>
+                    </h:panelGroup>
+             <br></br>
+             <br></br>
+            <h:commandButton action="#{ordersController.OrderConfirm}" value="#{bundle.OrderConfirm}"></h:commandButton> &nbsp;&nbsp;
+            <h:commandButton action="#{ordersController.OrderCancel}" value="#{bundle.OrderCancel}"></h:commandButton>
+        </h:form>
+    </h:body>
+    
+</html>
+
